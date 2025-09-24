@@ -11,7 +11,6 @@ const {
 
 const URL = `${PROTOCOL}://${BASE_URL_GEO}?q=${Q}&limit=${LIMIT}&appid=${APPID}`
 
-//DISPARANDOA REQUISIÇÃO HTTPS
 const promiseResultante = axios.get(URL)
 
 const pesquisa = promiseResultante
@@ -20,7 +19,6 @@ const pesquisa = promiseResultante
     return list
 })
 .then((resposta) => {
-    //exibir longitude e latitude da cidade
     resposta.forEach(cidade => {
         console.log(`Cidade: ${cidade.name}`)
         console.log(`Latitude: ${cidade.lat}`)
