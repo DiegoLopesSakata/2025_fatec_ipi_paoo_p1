@@ -21,19 +21,20 @@ const pesquisa = promiseResultante
 })
 .then((resposta) => {
     //exibir longitude e latitude da cidade
-    resposta.forEach(pesquisa => {
-        console.log(`Cidade: ${pesquisa.name}`)
-        console.log(`Latitude: ${pesquisa.lat}`)
-        console.log(`Longitude: ${pesquisa.lon}`)
+    resposta.forEach(cidade => {
+        console.log(`Cidade: ${cidade.name}`)
+        console.log(`Latitude: ${cidade.lat}`)
+        console.log(`Longitude: ${cidade.lon}`)
 
-        previsao(pesquisa)
+        previsao(cidade)
+        news()
     });
 })
 .catch((erro) => {
     console.log(`Erro: ${erro}`)
 })
 
-async function previsao(pesquisa){
+async function previsao(cidade){
     try{
         const { 
             PROTOCOL, 
@@ -43,7 +44,7 @@ async function previsao(pesquisa){
             IDIOM: LANG
         } = process.env
         
-        const URL2 = `${PROTOCOL}://${BASE_URL_WEATHER}?lat=${pesquisa.lat}&lon=${pesquisa.lon}&units=${UNITS}&lang=${LANG}&appid=${APPID}`
+        const URL2 = `${PROTOCOL}://${BASE_URL_WEATHER}?lat=${cidade.lat}&lon=${cidade.lon}&units=${UNITS}&lang=${LANG}&appid=${APPID}`
         
         const promiseResultante2 = await axios.get(URL2)
 
@@ -53,5 +54,34 @@ async function previsao(pesquisa){
     catch(err){
         console.log(`Erro: ${err}`)
     }
-    
+
+}
+
+async function news(){
+    try{
+        const {
+            PROTOCOL,
+            BASE_URL_NEWS,
+            APIKEY_NEWS,
+            Q,
+            FROM,
+            SORTBY
+        } = process.env
+
+        const URL3 = `${PROTOCOL}://${BASE_URL_NEWS}?q=${Q}&from=${FROM}&sortBy=${SORTBY}&apiKey=${APIKEY_NEWS}`
+        
+        const promiseResultante3 = await axios.get(URL3)
+
+        const articles = promiseResultante3.data.articles
+
+        console.log(`Noticias:`)
+
+        articles.forEach((artigo, i) => {
+            console.log(`\nArtigo ${i + 1}`)
+            console.log(artigo)
+        })
+    }
+    catch(err){
+        console.log(`Erro: ${err}`)
+    }
 }
