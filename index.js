@@ -2,14 +2,14 @@ require('dotenv').config()
 const axios = require('axios')
 
 const { 
-    PROTOCOL, 
+    PROTOCOL_GEO, 
     BASE_URL_GEO, 
     APPID, 
     Q,
     LIMIT,
 } = process.env
 
-const URL = `${PROTOCOL}://${BASE_URL_GEO}?q=${Q}&limit=${LIMIT}&appid=${APPID}`
+const URL = `${PROTOCOL_GEO}://${BASE_URL_GEO}?q=${Q}&limit=${LIMIT}&appid=${APPID}`
 
 const promiseResultante = axios.get(URL)
 
