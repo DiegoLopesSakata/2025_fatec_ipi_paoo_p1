@@ -13,7 +13,7 @@ const URL = `${PROTOCOL_GEO}://${BASE_URL_GEO}?q=${Q}&limit=${LIMIT}&appid=${APP
 
 const promiseResultante = axios.get(URL)
 
-const pesquisa = promiseResultante
+promiseResultante
 .then((resposta) => {
     const list = resposta.data
     return list
